@@ -13,7 +13,7 @@
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
     <property name="url" value="jdbc:mysql://192.168.1.3:3306/tesium" />
     <property name="username" value="tui" />
-    <property name="password" value="0bs3rv4t0rI0" />
+    <property name="password" value="" />
   </bean>
 
   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
