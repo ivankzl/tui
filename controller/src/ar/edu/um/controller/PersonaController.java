@@ -1,6 +1,7 @@
 package ar.edu.um.controller;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,6 +29,18 @@ import ar.edu.um.service.IPersonaService;
 @RestController
 public class PersonaController {
 
+	
+	static final String AB = "0123456789abcdefghijklmnopkrstuvwxyz";
+	static Random rnd = new Random();
+
+	String randomString( int len ) 
+	{
+	   StringBuilder sb = new StringBuilder( len );
+	   for( int i = 0; i < len; i++ ) 
+	      sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+	   return sb.toString();
+	}
+	
 	/** 
 	 * Url: http://<base_url>/welcome/user_id/
 	   Devuelve: Json con los siguientes atributos:
@@ -47,11 +60,11 @@ public class PersonaController {
 		System.out.println("cre_per_id de credencial = " + credencial.getCre_per_id());
 		Persona persona = perService.findPersonaByPerID(credencial.getCre_per_id());
 		
-		IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
-		Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID());
+		//IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
+		//Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID()); esto usarlo cuando necesite el mail
 		
 		Content content = new Content();
-		content.setLogin_id(domicilio.getDom_e_mail());
+		content.setLogin_id(persona.getPer_ID());
 		content.setName(persona.getPer_Nombre() + " " + persona.getPer_Apellido());
 		content.setPhoto("http://um.edu.ar/cursos/resources/images/marca.png");
 		String[] array = {"r1"};
@@ -59,7 +72,7 @@ public class PersonaController {
 		
 		RespuestaJSON respuesta = new RespuestaJSON();
 		respuesta.setContent(content);
-		respuesta.setStatus("200");
+		respuesta.setStatus(200);
 	
 		return respuesta;
 
@@ -83,12 +96,15 @@ public class PersonaController {
 		Persona persona = perService.validarLogin(login_id, password);
 		System.out.println(persona);
 		RespuestaJSONLogin respuesta = new RespuestaJSONLogin();
+		
 		if (persona == null){
-			respuesta.setStatus_code("-1");
+			respuesta.setStatus(-1);
 		}else{
 
-			respuesta.setStatus_code("200");
-			respuesta.setSession_token("24e13898f82db340655c556306e611e54a046803");
+			respuesta.setStatus(200);
+			String rand = randomString(30);
+			
+			respuesta.setSession_token(rand);
 		}
 		
 		
@@ -143,7 +159,7 @@ public class PersonaController {
 		
 		RespuestaJSONUserInfo respuesta = new RespuestaJSONUserInfo();
 		respuesta.setContent(content);
-		respuesta.setStatus("200");
+		respuesta.setStatus(200);
 		
 		return respuesta;
 		

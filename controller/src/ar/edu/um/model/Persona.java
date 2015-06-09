@@ -38,8 +38,8 @@ public class Persona implements Serializable {
 	@Id
 	@Column(name = "clave", nullable = false)
 	private int clave;
-	@Column(name = "Per_Contrasenia", nullable = false)
-	private String Per_Contrasenia;
+	@Column(name = "Per_Contrasenha", nullable = false)
+	private String Per_Contrasenha;
 
 
 	public Persona() {
@@ -118,12 +118,12 @@ public class Persona implements Serializable {
 		this.clave = clave;
 	}
 
-	public String getPer_Contrasenia() {
-		return Per_Contrasenia;
+	public String getPer_Contrasenha() {
+		return Per_Contrasenha;
 	}
 
-	public void setPer_Contrasenia(String per_Contrasenia) {
-		Per_Contrasenia = per_Contrasenia;
+	public void setPer_Contrasenha(String per_Contrasenha) {
+		Per_Contrasenha = per_Contrasenha;
 	}
 
 	@Override
@@ -132,8 +132,8 @@ public class Persona implements Serializable {
 				+ ", Per_Nombre=" + Per_Nombre + ", Per_Apellido="
 				+ Per_Apellido + ", Per_Sexo=" + Per_Sexo + ", Per_Primero="
 				+ Per_Primero + ", Per_CUIT=" + Per_CUIT + ", Per_CBU="
-				+ Per_CBU + ", clave=" + clave + ", Per_Contrasenia="
-				+ Per_Contrasenia + "]";
+				+ Per_CBU + ", clave=" + clave + ", Per_Contrasenha="
+				+ Per_Contrasenha + "]";
 	}
 
 	

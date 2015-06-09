@@ -2,17 +2,17 @@ package ar.edu.um.model;
 
 public class RespuestaJSONUserInfo {
 	private ContentUserInfo content;
-	private String status;
+	private int status;
 	public ContentUserInfo getContent() {
 		return content;
 	}
 	public void setContent(ContentUserInfo content) {
 		this.content = content;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	@Override

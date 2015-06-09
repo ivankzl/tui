@@ -1,16 +1,18 @@
 package ar.edu.um.model;
 
+import java.math.BigDecimal;
+
 public class Content {
-	private String login_id;
+	private BigDecimal login_id;
 	private String name;
 	private String[] roles;
 	private String photo;
 	private int new_user_id;
 	
-	public String getLogin_id() {
+	public BigDecimal getLogin_id() {
 		return login_id;
 	}
-	public void setLogin_id(String login_id) {
+	public void setLogin_id(BigDecimal login_id) {
 		this.login_id = login_id;
 	}
 	public String getName() {

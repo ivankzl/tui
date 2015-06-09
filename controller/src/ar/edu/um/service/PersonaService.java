@@ -38,9 +38,9 @@ public class PersonaService implements IPersonaService {
 	}
 
 	@Transactional
-	public Persona validarLogin(BigDecimal Per_ID, String Per_Contrasenia) {
+	public Persona validarLogin(BigDecimal Per_ID, String Per_Contrasenha) {
 		
-		return (Persona)personaDAO.validarLogin(Per_ID, Per_Contrasenia);
+		return (Persona)personaDAO.validarLogin(Per_ID, Per_Contrasenha);
 	}
 
 

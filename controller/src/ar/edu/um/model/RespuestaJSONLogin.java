@@ -2,14 +2,14 @@ package ar.edu.um.model;
 
 public class RespuestaJSONLogin {
 	
-	private String status_code;
+	private int status;
 	private String session_token;
 	
-	public String getStatus_code() {
-		return status_code;
+	public int getStatus() {
+		return status;
 	}
-	public void setStatus_code(String status_code) {
-		this.status_code = status_code;
+	public void setStatus(int status_code) {
+		this.status = status_code;
 	}
 	public String getSession_token() {
 		return session_token;
@@ -20,7 +20,7 @@ public class RespuestaJSONLogin {
 	
 	@Override
 	public String toString() {
-		return "RespuestaJSONUserInfo [status_code=" + status_code
+		return "RespuestaJSONUserInfo [status_code=" + status
 				+ ", session_token=" + session_token + "]";
 	}
 	

@@ -54,10 +54,10 @@ public class PersonaDAO implements IPersonaDAO {
 	
 	}
 	
-	public Persona validarLogin(BigDecimal Per_ID, String Per_Contrasenia) {
-		Query query = sessionFactory.getCurrentSession().createQuery("from Persona where Per_ID=:Per_ID and Per_Contrasenia=:Per_Contrasenia");
+	public Persona validarLogin(BigDecimal Per_ID, String Per_Contrasenha) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from Persona where Per_ID=:Per_ID and Per_Contrasenha=:Per_Contrasenha");
 		query.setParameter("Per_ID", Per_ID);
-		query.setParameter("Per_Contrasenia", Per_Contrasenia);
+		query.setParameter("Per_Contrasenha", Per_Contrasenha);
 		
 		Persona persona = (Persona) query.uniqueResult();
 		
