@@ -38,6 +38,8 @@ public class Persona implements Serializable {
 	@Id
 	@Column(name = "clave", nullable = false)
 	private int clave;
+	@Column(name = "Per_Contrasenia", nullable = false)
+	private String Per_Contrasenia;
 
 
 	public Persona() {
@@ -114,6 +116,24 @@ public class Persona implements Serializable {
 
 	public void setClave(int clave) {
 		this.clave = clave;
+	}
+
+	public String getPer_Contrasenia() {
+		return Per_Contrasenia;
+	}
+
+	public void setPer_Contrasenia(String per_Contrasenia) {
+		Per_Contrasenia = per_Contrasenia;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [Per_ID=" + Per_ID + ", Per_Doc_ID=" + Per_Doc_ID
+				+ ", Per_Nombre=" + Per_Nombre + ", Per_Apellido="
+				+ Per_Apellido + ", Per_Sexo=" + Per_Sexo + ", Per_Primero="
+				+ Per_Primero + ", Per_CUIT=" + Per_CUIT + ", Per_CBU="
+				+ Per_CBU + ", clave=" + clave + ", Per_Contrasenia="
+				+ Per_Contrasenia + "]";
 	}
 
 	

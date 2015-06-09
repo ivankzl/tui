@@ -11,6 +11,6 @@ public interface IPersonaService {
 	List<Persona> list();
 	Persona findPersonaByClave(Integer clave);
 	Persona findPersonaByPerID(BigDecimal Per_ID);
-	RespuestaJSONLogin validarLogin(String login_id, String password);
+	Persona validarLogin(BigDecimal login_id, String password);
 
 }

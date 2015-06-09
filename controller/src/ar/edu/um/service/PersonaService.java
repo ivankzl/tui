@@ -37,10 +37,10 @@ public class PersonaService implements IPersonaService {
 		return (Persona)personaDAO.findPersonaByPerID(Per_ID);
 	}
 
-	@Override
-	public RespuestaJSONLogin validarLogin(String login_id, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Persona validarLogin(BigDecimal Per_ID, String Per_Contrasenia) {
+		
+		return (Persona)personaDAO.validarLogin(Per_ID, Per_Contrasenia);
 	}
 
 
