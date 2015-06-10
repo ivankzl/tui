@@ -55,26 +55,33 @@ public class PersonaController {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IPersonaService perService = (IPersonaService) context.getBean("personaService");
 		ICredencialService creService = (ICredencialService) context.getBean("credencialService");
-		
-		Credencial credencial = creService.findCredencialByCreNumero(cre_numero);
-		System.out.println("cre_per_id de credencial = " + credencial.getCre_per_id());
-		Persona persona = perService.findPersonaByPerID(credencial.getCre_per_id());
-		
-		//IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
-		//Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID()); esto usarlo cuando necesite el mail
-		
-		Content content = new Content();
-		content.setLogin_id(persona.getPer_ID());
-		content.setName(persona.getPer_Nombre() + " " + persona.getPer_Apellido());
-		content.setPhoto("http://um.edu.ar/cursos/resources/images/marca.png");
-		String[] array = {"r1"};
-		content.setRoles(array);
-		
-		RespuestaJSON respuesta = new RespuestaJSON();
-		respuesta.setContent(content);
-		respuesta.setStatus(200);
 	
-		return respuesta;
+		try{
+			Credencial credencial = creService.findCredencialByCreNumero(cre_numero);
+			System.out.println("cre_per_id de credencial = " + credencial.getCre_per_id());
+			Persona persona = perService.findPersonaByPerID(credencial.getCre_per_id());
+		
+			//IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
+			//Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID()); esto usarlo cuando necesite el mail
+		
+			Content content = new Content();
+			content.setLogin_id(persona.getPer_ID());
+			content.setName(persona.getPer_Nombre() + " " + persona.getPer_Apellido());
+			content.setPhoto("http://um.edu.ar/cursos/resources/images/marca.png");
+			String[] array = {"r1"};
+			content.setRoles(array);
+		
+			RespuestaJSON respuesta = new RespuestaJSON();
+			respuesta.setContent(content);
+			respuesta.setStatus(200);
+	
+			return respuesta;
+		}catch(NullPointerException e){
+
+			RespuestaJSON respuesta = new RespuestaJSON();
+			respuesta.setStatus(-2);
+			return respuesta;
+		}
 
 	}
 	
@@ -118,50 +125,58 @@ public class PersonaController {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		IPersonaService perService = (IPersonaService) context.getBean("personaService");
 		ICredencialService creService = (ICredencialService) context.getBean("credencialService");
+		try{
+			Credencial credencial = creService.findCredencialByCreNumero(cre_numero);
+			System.out.println("cre_per_id de credencial = " + credencial.getCre_per_id());
+			//DE ACA SACO EL USER_ID, NOMBRE, APELLIDO
+			Persona persona = perService.findPersonaByPerID(credencial.getCre_per_id());
 		
-		Credencial credencial = creService.findCredencialByCreNumero(cre_numero);
-		System.out.println("cre_per_id de credencial = " + credencial.getCre_per_id());
-		//DE ACA SACO EL USER_ID, NOMBRE, APELLIDO
-		Persona persona = perService.findPersonaByPerID(credencial.getCre_per_id());
-		
-		//EMAIL, TELEFONO, sacarlo del domicilio
-		IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
-		Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID());
+			//EMAIL, TELEFONO, sacarlo del domicilio
+			IDomicilioService domService = (IDomicilioService) context.getBean("domicilioService");
+			Domicilio domicilio = domService.findDomicilioByPerID(persona.getPer_ID());
 		
 		
-		IAlulegService aluService = (IAlulegService) context.getBean("alulegService");
-		Aluleg aluleg = aluService.findFacultadByPerID(persona.getPer_ID());
-		//ID DE LA CARRERA
-		//aluleg.getALe_Car_ID();
+			IAlulegService aluService = (IAlulegService) context.getBean("alulegService");
+			Aluleg aluleg = aluService.findFacultadByPerID(persona.getPer_ID());
 		
-		IFacultadService facuService = (IFacultadService) context.getBean("facultadService");
-		Facultad facultad = facuService.findFacultadByID(aluleg.getALe_Car_ID());
 		
-		//content.setRlation ("alumno")
-		//content.setRoles("r1");
-		//STATUS ->ojo, no hay
-		//content.setstatus("inventado")
 		
-		ContentUserInfo content = new ContentUserInfo();
-		content.setUser_id(persona.getPer_ID());
-		content.setEmail(domicilio.getDom_e_mail());
-		content.setTlf(domicilio.getDom_Telefono());
-		content.setName(persona.getPer_Nombre());
-		content.setSurname(persona.getPer_Apellido());
-		content.setPhoto("http://um.edu.ar/cursos/resources/images/marca.png");
-		content.setAdmin_unit(facultad.getFac_Nombre());
-		//RELATION ->ojo, no tenemos si es alumno o administrativo o prof...
-		content.setRelation("alumnno");
-		//ROLES ->ojo, no tenemos roles en la bd
-		content.setRoles("r1");
-		//STATUS ->ojo, no tenemos status en la bd
-		content.setStatus("activo");
+			IFacultadService facuService = (IFacultadService) context.getBean("facultadService");
+			Facultad facultad = facuService.findFacultadByID(aluleg.getALe_Car_ID());
+	
 		
-		RespuestaJSONUserInfo respuesta = new RespuestaJSONUserInfo();
-		respuesta.setContent(content);
-		respuesta.setStatus(200);
+			String[] arrayAdm = {facultad.getFac_Nombre()};
+			String[] arrayRel = {"alumno"};
+			String[] arrayRole = {"r1"};
 		
-		return respuesta;
+			ContentUserInfo content = new ContentUserInfo();
+			
+			content.setUser_id(persona.getPer_ID());
+			content.setEmail(domicilio.getDom_e_mail());
+			content.setTlf(domicilio.getDom_Telefono());
+			content.setName(persona.getPer_Nombre());
+			content.setSurname(persona.getPer_Apellido());
+			content.setPhoto("http://um.edu.ar/cursos/resources/images/marca.png");
+			content.setAdmin_unit(arrayAdm);
+			//RELATION ->ojo, no tenemos si es alumno o administrativo o prof...
+			content.setRelation(arrayRel);
+			//ROLES ->ojo, no tenemos roles en la bd
+			content.setRoles(arrayRole);
+			//STATUS ->ojo, no tenemos status en la bd
+			content.setStatus("activo");
+		
+			RespuestaJSONUserInfo respuesta = new RespuestaJSONUserInfo();
+			respuesta.setContent(content);
+			respuesta.setStatus(200);
+		
+		
+			return respuesta;
+		}catch (NullPointerException e){
+			System.out.println("nullPointerException cachada");
+			RespuestaJSONUserInfo respuesta = new RespuestaJSONUserInfo();
+			respuesta.setStatus(-2);
+			return respuesta;
+		}
 		
 	}
  

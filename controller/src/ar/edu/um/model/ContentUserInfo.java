@@ -1,6 +1,7 @@
 package ar.edu.um.model;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class ContentUserInfo {
 	
@@ -10,9 +11,9 @@ public class ContentUserInfo {
 	private String name;
 	private String surname;
 	private String photo;
-	private String admin_unit;
-	private String relation;
-	private String roles;
+	private String[] admin_unit;
+	private String[] relation;
+	private String[] roles;
 	private String status;
 	
 	public ContentUserInfo(){
@@ -67,27 +68,27 @@ public class ContentUserInfo {
 		this.photo = photo;
 	}
 
-	public String getAdmin_unit() {
+	public String[]  getAdmin_unit() {
 		return admin_unit;
 	}
 
-	public void setAdmin_unit(String admin_unit) {
+	public void setAdmin_unit(String[]  admin_unit) {
 		this.admin_unit = admin_unit;
 	}
 
-	public String getRelation() {
+	public String[] getRelation() {
 		return relation;
 	}
 
-	public void setRelation(String relation) {
+	public void setRelation(String[] relation) {
 		this.relation = relation;
 	}
 
-	public String getRoles() {
+	public String[] getRoles() {
 		return roles;
 	}
 
-	public void setRoles(String roles) {
+	public void setRoles(String[] roles) {
 		this.roles = roles;
 	}
 
@@ -103,10 +104,14 @@ public class ContentUserInfo {
 	public String toString() {
 		return "ContentUserInfo [user_id=" + user_id + ", email=" + email
 				+ ", tlf=" + tlf + ", name=" + name + ", surname=" + surname
-				+ ", photo=" + photo + ", admin_unit=" + admin_unit
-				+ ", relation=" + relation + ", roles=" + roles + ", status="
-				+ status + "]";
+				+ ", photo=" + photo + ", admin_unit="
+				+ Arrays.toString(admin_unit) + ", relation="
+				+ Arrays.toString(relation) + ", roles="
+				+ Arrays.toString(roles) + ", status=" + status + "]";
 	}
+
+	
+
 	
 	
 	
